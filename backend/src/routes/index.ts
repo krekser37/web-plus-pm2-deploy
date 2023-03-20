@@ -11,6 +11,16 @@ import {
 import { validateUserBody, validateAuthentication } from '../middlewares/validatons';
 
 const router = Router();
+
+//Ситуации, в которых сервер падает, должны быть предусмотрены.
+//Приложение должно работать в процессе, который при падении автоматически восстанавливается.
+//удалить этот код после успешного прохождения ревью.
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 router.post('/signup', validateUserBody, createUser);
 router.post('/signin', validateAuthentication, login);
 
